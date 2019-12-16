@@ -1,5 +1,6 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,9 @@ import java.util.List;
 @Controller
 @RequestMapping("events")
 public class EventController {
-    private  static List<String> events= new ArrayList<>();
+    //now we changed List<String> as List<Events>, and then create a new package(model)  by right clicking org.launcode.codingevents and and right click(models) again to create new java class(Event).
+    private  static List<Event> events= new ArrayList<>();
+// previously we passed string,in list,like this   private  static List<String> events= new ArrayList<>();
     //localhost/events display all the events in the page
     @GetMapping
     public String displayAllEvents(Model model){
@@ -28,7 +31,7 @@ public class EventController {
     //lives at /events/create
     @PostMapping("create")
     public String createEvent(@RequestParam String eventName){
-        events.add(eventName);
+        events.add(new Event(eventName));
         return "redirect:/";
     }
 }
