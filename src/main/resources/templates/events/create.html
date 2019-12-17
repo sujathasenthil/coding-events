@@ -3,10 +3,20 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <h1>Create Event</h1>
-<nav th:replace="fragments :: navigation"></nav>
+<div class="nav">
+<nav th:replace="fragments :: navigation"></nav></div>
 <form method="post" action="/events/create">
-    <input type="text" name="eventName">
-    <input type="submit" value="Create Event"></input>
+    <div class="form-group">
+        <label>Name
+    <input type="text" name="eventName" class="form-control"></label>
+    </div>
+    <div class="form-group">
+        <label>Description
+            <input type="text" name="eventDesc" class="form-control"></label>
+    </div>
+    <div class="form-group">
+    <input type="submit" value="Create Event" class="btn btn-success"></input>
+    </div>
 </form>
 </body>
 </html>
