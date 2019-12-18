@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
-    <title>CodingEvents</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body class="container">
-<h1>Coding Events</h1>
-<nav th:fragment="navigation">
+<div th:fragment="navigation">
+    <h1 th:text="${title}">Coding Events</h1>
     <ul class="nav">
-        <li class="nav-item"><a href="/events">All Events</a></li>
-        <li class="nav-item"><a href="/events/create">Create Events</a></li>
+        <li class="nav-item"><a class="nav-link" href="/events">All Events</a></li>
+        <li class="nav-item"><a class="nav-link" href="/events/create">Create Events</a></li>
+        <li class="nav-item"><a class="nav-link" href="/events/delete">Delete Event</a></li>
     </ul>
-</nav>
+</div>
 </body>
 </html>
