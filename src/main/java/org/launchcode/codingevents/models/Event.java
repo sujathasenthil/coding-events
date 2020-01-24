@@ -13,6 +13,13 @@ import java.util.Objects;
 public class Event extends AbstractEntity {
 
     //create new string name and using generate create constructor and getter and setter and generate tostring(edit to return name alone
+//    @Id
+//    @GeneratedValue
+//    private int id;
+//    public int getId() {
+//        return id;
+//    }
+
 
     @NotBlank(message="Name is required")
     @Size(min = 3, max=50, message="Name must be between 3 and 50 characters long")

@@ -3,39 +3,77 @@
 <head th:replace="fragments :: head"></head>
 <body class="container">
 <div th:replace="fragments :: navigation"></div>
-<form method="post">
+<form method="post" th:action="@{/events/edit}">
     <th:block th:each="event : ${events}">
         <div class="form-group">
             <label>
-                <span th:text="${event.name}"></span>
-                <input type="checkbox" name="eventIds" th:value="${event.id}" class="form-control">
+                <input type="hidden" th:value="${abs.id}" name="eventId" />
             </label>
         </div>
+
+        <div class="form-group">
+            <label>Name
+                <input th:field="${event.name}"  class="form-control">
+            </label>
+            <p class="error" th:errors="${event.name}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Description
+                <input th:field="${event.description}"  class="form-control">
+            </label>
+            <p class="error" th:errors="${event.description}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Contact Email
+                <input th:field="${event.contactEmail}" class="form-control">
+            </label>
+            <p class="error" th:errors="${event.contactEmail}"></p>
+        </div>
+        <div class="form-group">
+            <label>Location
+                <input th:field="${event.location}" class="form-control">
+            </label>
+            <p class="error" th:errors="${event.location}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Register
+                <input type="checkbox" th:field="${event.register}" checked="checked" value="True" class="form-control">
+            </label>
+            <p class="error" th:errors="${event.register}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Number Of Attendees
+                <input th:field="${event.numberOfAttendees}" class="form-control">
+            </label>
+            <p class="error" th:errors="${event.numberOfAttendees}"></p>
+        </div>
+        <div class="form-group">
+            <label>Date Of Participation
+                <input th:field="${event.dateOfParticipation}" class="form-control">
+            </label>
+            <p class="error" th:errors="${event.dateOfParticipation}"></p>
+        </div>
+        <div class="form-group">
+            <label>Type
+                <select th:field="${event.type}">
+                    <option th:each="type : ${types}"
+                            th:value="${type}"
+                            th:text="${type.displayName}">
+                    </option>
+                </select>
+            </label>
+        </div>
+
+
     </th:block>
-    <input type="submit" value="Edit" class="btn btn-danger">
 
-
-
-
-<!--    <div class="form-group">-->
-<!--        <input th:field="${event.id}" type="hidden"  class="form-control">-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--        <label>Name-->
-<!--            <input th:field="${event.name}" class="form-control">-->
-<!--        </label>-->
-<!--        <p class="error" th:errors="${event.name}"></p>-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--        <label>Description-->
-<!--                <input th:field="${event.description}" class="form-control">-->
-<!--            </label>-->
-<!--            <p class="error" th:errors="${event.description}"></p>-->
-<!--    </div>-->
-
-<!--    <div class="form-group">-->
-<!--        <input type="submit" value="Update Event" class="btn btn-danger">-->
-<!--    </div>-->
+    <div class="form-group">
+        <input type="submit" value="Edit" class="btn btn-danger">
+    </div>
 </form>
 </body>
 </html>

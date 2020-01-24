@@ -2,6 +2,7 @@ package org.launchcode.codingevents.controllers;
 
 //import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.data.EventRepository;
+import org.launchcode.codingevents.models.AbstractEntity;
 import org.launchcode.codingevents.models.Event;
 import org.launchcode.codingevents.models.EventTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -63,25 +65,28 @@ public class EventController {
         }}
         return("redirect:");
     }
-    @GetMapping("edit")
-    public String displayEditForm(Model model) {
-        // controller code will go here
-        //EventData.getEventById(eventId);
-//        eventRepository.findById();
-        model.addAttribute("title","Update Event");
-        model.addAttribute("events",eventRepository.findAll());
-        return "/events/edit";
+    @GetMapping("edit/{eventId}")
+    public String displayEditForm(Model model,@PathVariable int eventId,@Valid @ModelAttribute AbstractEntity abs) {
+     //   model.addAttribute(new AbstractEntity());
+        model.addAttribute("title", "EditEvent");
+        model.addAttribute("events",eventRepository.findById(eventId));
+        return "events/edit";
     }
 
-    @PostMapping("")
-    public String processEditForm(@RequestParam(required = false) int[] eventIds, @ModelAttribute @Valid Event newEvent,Model model) {
-        // controller code will go here
-        if (eventIds!= null){
-            for(int id : eventIds){
-                eventRepository.findById(id);
-            }}
-        eventRepository.save(newEvent);
-        return "events/index";
+     @PostMapping("edit")
+        public String processEditForm(int eventId, String name, String description, String contactEmail, String location, boolean register, int numberOfAttendees, Date dateOfParticipation, EventTypes type,Event event)
+        {
+            eventRepository.findById(eventId);
+            event.setName(name);
+            event.setDescription(description);
+            event.setContactEmail(contactEmail);
+            event.setDateOfParticipation(dateOfParticipation);
+            event.setLocation(location);
+            event.setNumberOfAttendees(numberOfAttendees);
+            event.setRegister(register);
+            event.setType(type);
+            eventRepository.save(event);
+            return "redirect: ";
     }
 
 }

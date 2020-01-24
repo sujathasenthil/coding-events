@@ -30,6 +30,10 @@
             <td th:text="${event.numberOfAttendees}"></td>
             <td th:text="${event.dateOfParticipation}"></td>
             <td th:text="${event.type.displayName}"></td>
+            <td>
+                <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
+            </td>
+
         </tr>
     </table>
 </body>
