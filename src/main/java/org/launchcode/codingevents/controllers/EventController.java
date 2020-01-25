@@ -66,15 +66,16 @@ public class EventController {
         return("redirect:");
     }
     @GetMapping("edit/{eventId}")
-    public String displayEditForm(Model model,@PathVariable int eventId,@Valid @ModelAttribute AbstractEntity abs) {
+    public String displayEditForm(Model model,@PathVariable int eventId) {
      //   model.addAttribute(new AbstractEntity());
         model.addAttribute("title", "EditEvent");
         model.addAttribute("events",eventRepository.findById(eventId));
+        model.addAttribute("types",EventTypes.values());
         return "events/edit";
     }
 
      @PostMapping("edit")
-        public String processEditForm(int eventId, String name, String description, String contactEmail, String location, boolean register, int numberOfAttendees, Date dateOfParticipation, EventTypes type,Event event)
+        public String processEditForm(Event event,@RequestParam int eventId,@RequestParam String name,@RequestParam String description,@RequestParam String contactEmail,@RequestParam String location,@RequestParam boolean register,@RequestParam int numberOfAttendees,@RequestParam Date dateOfParticipation)
         {
             eventRepository.findById(eventId);
             event.setName(name);
@@ -84,7 +85,6 @@ public class EventController {
             event.setLocation(location);
             event.setNumberOfAttendees(numberOfAttendees);
             event.setRegister(register);
-            event.setType(type);
             eventRepository.save(event);
             return "redirect: ";
     }
