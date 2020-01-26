@@ -1,25 +1,15 @@
 package org.launchcode.codingevents.models;
 
 import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
-import javax.websocket.OnError;
 import java.util.Date;
-import java.util.Objects;
+
 @Entity
 public class Event extends AbstractEntity {
 
     //create new string name and using generate create constructor and getter and setter and generate tostring(edit to return name alone
-//    @Id
-//    @GeneratedValue
-//    private int id;
-//    public int getId() {
-//        return id;
-//    }
-
 
     @NotBlank(message="Name is required")
     @Size(min = 3, max=50, message="Name must be between 3 and 50 characters long")
@@ -44,9 +34,11 @@ public class Event extends AbstractEntity {
     @FutureOrPresent(message="enter valid date")
     @NotNull(message="enter valid date")
     private Date dateOfParticipation;
-    private EventTypes type;
-    public Event(String name, String description, String contactEmail, String location, boolean register,int numberOfAttendees, Date dateOfParticipation, EventTypes type) {
-
+   // private EventTypes type;
+    @ManyToOne
+    @NotNull(message="Category is required")
+    private EventCategory eventCategory;
+    public Event(String name, String description, String contactEmail, String location, boolean register,int numberOfAttendees, Date dateOfParticipation, EventCategory eventCategory) {
         this.name = name;
          this.description=description;
          this.contactEmail=contactEmail;
@@ -54,7 +46,7 @@ public class Event extends AbstractEntity {
          this.register=register;
          this.numberOfAttendees=numberOfAttendees;
          this.dateOfParticipation=dateOfParticipation;
-         this.type=type;
+         this.eventCategory=eventCategory;
         }
 public Event(){
 }
@@ -114,17 +106,13 @@ public Event(){
         this.dateOfParticipation = dateOfParticipation;
     }
 
-
-
-    public EventTypes getType() {
-        return type;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setType(EventTypes type) {
-        this.type = type;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
-
-
 
     @Override
     public String toString() {

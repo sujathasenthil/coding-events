@@ -1,28 +1,32 @@
 package org.launchcode.codingevents.controllers;
 
 //import org.launchcode.codingevents.data.EventData;
+import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.AbstractEntity;
 import org.launchcode.codingevents.models.Event;
-import org.launchcode.codingevents.models.EventTypes;
+//import org.launchcode.codingevents.models.EventTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("events")
 public class EventController {
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private EventCategoryRepository eventCategoryRepository;
 
     @GetMapping
     public String displayAllEvents(Model model){
@@ -35,7 +39,8 @@ public class EventController {
     public String displayCreateEventForm(Model model){
         model.addAttribute("title","Create Event");
         model.addAttribute(new Event());
-        model.addAttribute("types",EventTypes.values());
+    //    model.addAttribute("types",EventTypes.values());
+        model.addAttribute("categories",eventCategoryRepository.findAll());
         return "events/create";
     }
 
@@ -66,26 +71,33 @@ public class EventController {
         return("redirect:");
     }
     @GetMapping("edit/{eventId}")
-    public String displayEditForm(Model model,@PathVariable int eventId) {
+//    public String displayEditForm(Model model,@PathVariable int eventId) {
      //   model.addAttribute(new AbstractEntity());
+    public String displayEditForm(Model model,@PathVariable int eventId) {
+        Optional<Event> event=eventRepository.findById(eventId);
+        model.addAttribute("event",eventRepository.findById(eventId));
         model.addAttribute("title", "EditEvent");
-        model.addAttribute("events",eventRepository.findById(eventId));
-        model.addAttribute("types",EventTypes.values());
+     //   model.addAttribute("types",EventTypes.values());
+      model.addAttribute("categories",eventCategoryRepository.findAll());
         return "events/edit";
     }
 
      @PostMapping("edit")
-        public String processEditForm(Event event,@RequestParam int eventId,@RequestParam String name,@RequestParam String description,@RequestParam String contactEmail,@RequestParam String location,@RequestParam boolean register,@RequestParam int numberOfAttendees,@RequestParam Date dateOfParticipation)
+        public String processEditForm(Event eventVal,@RequestParam int eventId,@RequestParam String name,@RequestParam String description,@RequestParam String contactEmail,@RequestParam String location,@RequestParam boolean register,@RequestParam int numberOfAttendees,@RequestParam Date dateOfParticipation)
         {
-            eventRepository.findById(eventId);
-            event.setName(name);
-            event.setDescription(description);
-            event.setContactEmail(contactEmail);
-            event.setDateOfParticipation(dateOfParticipation);
-            event.setLocation(location);
-            event.setNumberOfAttendees(numberOfAttendees);
-            event.setRegister(register);
-            eventRepository.save(event);
+           Optional<Event> event=eventRepository.findById(eventId);
+            if(event.isPresent())
+                eventVal=event.get();
+           // eventRepository.findById(eventId);
+                eventVal.setName(name);
+                eventVal.setDescription(description);
+                eventVal.setContactEmail(contactEmail);
+                eventVal.setDateOfParticipation(dateOfParticipation);
+                eventVal.setLocation(location);
+                eventVal.setNumberOfAttendees(numberOfAttendees);
+                eventVal.setRegister(register);
+
+            eventRepository.save(eventVal);
             return "redirect: ";
     }
 
