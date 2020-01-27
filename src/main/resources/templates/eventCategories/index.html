@@ -11,9 +11,13 @@
 
     </thead>
 
+<!--    <tr th:each="eventCategory : ${categories}">-->
+<!--&lt;!&ndash;        <td th:text="${eventCategory.id}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${eventCategory.name}"></td>&ndash;&gt;-->
+<!--        <td><a th:text="${eventCategory.name}" th:href="'/events/?categoryId='+${eventCategory.id}"></a></td>-->
+<!--    </tr>-->
     <tr th:each="eventCategory : ${categories}">
-<!--        <td th:text="${eventCategory.id}"></td>-->
-        <td th:text="${eventCategory.name}"></td>
+        <td><a th:text="${eventCategory.name}" th:href="'/events?categoryId=' + ${eventCategory.id}"></a></td>
     </tr>
 </table>
 
