@@ -31,9 +31,9 @@ public class EventDetails extends AbstractEntity {
     @FutureOrPresent(message="enter valid date")
     @NotNull(message="enter valid date")
     private Date dateOfParticipation;
-
-    @OneToOne(mappedBy = "eventDetails")
-    private Event event;
+//
+//    @OneToOne(mappedBy = "eventDetails")
+//    private Event event;
     public EventDetails(String description,String contactEmail,String location, boolean register,int numberOfAttendees, Date dateOfParticipation) {
         this.description = description;
         this.contactEmail = contactEmail;

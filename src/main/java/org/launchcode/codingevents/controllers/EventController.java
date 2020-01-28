@@ -84,37 +84,54 @@ public class EventController {
         }}
         return("redirect:");
     }
-//    @GetMapping("edit/{eventId}")
+
+    @GetMapping("detail")
+    public String displayEventDetails(@RequestParam Integer eventId, Model model) {
+
+        Optional<Event> result = eventRepository.findById(eventId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Event ID: " + eventId);
+        } else {
+            Event event = result.get();
+            model.addAttribute("title", event.getName() + " Details");
+            model.addAttribute("event", event);
+        }
+
+        return "events/detail";
+    }
+
+    @GetMapping("edit/{eventId}")
 //    public String displayEditForm(Model model,@PathVariable int eventId) {
-     //   model.addAttribute(new AbstractEntity());
-//    public String displayEditForm(Model model,@PathVariable int eventId) {
-//        Optional<Event> event=eventRepository.findById(eventId);
-//        model.addAttribute("event",eventRepository.findById(eventId));
-//        model.addAttribute("title", "EditEvent");
-//     //   model.addAttribute("types",EventTypes.values());
-//      model.addAttribute("categories",eventCategoryRepository.findAll());
-//        return "events/edit";
-//    }
-//
-//     @PostMapping("edit")
-//        public String processEditForm(Event eventVal,@RequestParam int eventId,EventDetails eventDetails)
-//    //@RequestParam String name,@RequestParam String description,@RequestParam String contactEmail,@RequestParam String location,@RequestParam boolean register,@RequestParam int numberOfAttendees,@RequestParam Date dateOfParticipation)
-//        {
-//           Optional<Event> event=eventRepository.findById(eventId);
-//            if(event.isPresent())
-//                eventVal=event.get();
-//           // eventRepository.findById(eventId);
+//        model.addAttribute(new AbstractEntity());
+    public String displayEditForm(Model model,@PathVariable int eventId) {
+        Optional<Event> event=eventRepository.findById(eventId);
+        model.addAttribute("event",eventRepository.findById(eventId));
+        model.addAttribute("title", "EditEvent");
+     //   model.addAttribute("types",EventTypes.values());
+      model.addAttribute("categories",eventCategoryRepository.findAll());
+        return "events/edit";
+    }
+
+     @PostMapping("edit")
+        public String processEditForm(Event eventVal,@RequestParam int eventId,EventDetails eventDetails)
+    //@RequestParam String name,@RequestParam String description,@RequestParam String contactEmail,@RequestParam String location,@RequestParam boolean register,@RequestParam int numberOfAttendees,@RequestParam Date dateOfParticipation)
+        {
+           Optional<Event> event=eventRepository.findById(eventId);
+            if(event.isPresent())
+                eventVal=event.get();
+           // eventRepository.findById(eventId);
+                eventVal.setEventDetails(eventDetails);
+//                   eventVal.setEventDetails(eventDetails);
 //                eventVal.setEventDetails(eventDetails);
-////                eventVal.setEventDetails(eventDetails);
-////                eventVal.setEventDetails(eventDetails);
-////                eventVal.setDateOfParticipation(dateOfParticipation);
-////                eventVal.setLocation(location);
-////                eventVal.setNumberOfAttendees(numberOfAttendees);
-////                eventVal.setRegister(register);
-//
-//            eventRepository.save(eventVal);
-//            return "redirect: ";
-//    }
+//                eventVal.setDateOfParticipation(dateOfParticipation);
+//                eventVal.setLocation(location);
+//                eventVal.setNumberOfAttendees(numberOfAttendees);
+//                eventVal.setRegister(register);
+
+            eventRepository.save(eventVal);
+            return "redirect: ";
+    }
 
     }
 

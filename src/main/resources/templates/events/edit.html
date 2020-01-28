@@ -38,44 +38,44 @@
     </div>
     <div class="form-group">
         <label th:for="description">Description
-            <input type="text" th:field=${event.description} class="form-control"></label>
-        <p class = "error" th:errors="${event.description}"></p>
+            <input type="text" th:field=${event.eventDetails.description} class="form-control"></label>
+        <p class = "error" th:errors="${event.eventDetails.description}"></p>
 
     </div>
 
     <div class="form-group">
 
         <label th:for="contactEmail">Email
-            <input type="email"  th:field=${event.contactEmail}  class="form-control"></label>
-        <p class = "error" th:errors="${event.contactEmail}"></p>
+            <input type="email"  th:field=${event.eventDetails.contactEmail}  class="form-control"></label>
+        <p class = "error" th:errors="${event.eventDetails.contactEmail}"></p>
 
     </div>
 
     <div class="form-group">
         <label th:for="location">Location
-            <input type="text" th:field="${event.location}" class="form-control">
+            <input type="text" th:field="${event.eventDetails.location}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.location}"></p>
+        <p class="error" th:errors="${event.eventDetails.location}"></p>
     </div>
 
     <div class="form-group">
         <label th:for="register">Register
-            <input type="checkbox" th:field="${event.register}" checked="checked" value="True" class="form-control">
+            <input type="checkbox" th:field="${event.eventDetails.register}" checked="checked" value="True" class="form-control">
         </label>
-        <p class="error" th:errors="${event.register}"></p>
+        <p class="error" th:errors="${event.eventDetails.register}"></p>
     </div>
             <div class="form-group">
                 <label>Number Of Attendees
-                    <input th:field="${event.numberOfAttendees}" class="form-control">
+                    <input th:field="${event.eventDetails.numberOfAttendees}" class="form-control">
                 </label>
-                <p class="error" th:errors="${event.numberOfAttendees}"></p>
+                <p class="error" th:errors="${event.eventDetails.numberOfAttendees}"></p>
             </div>
 
     <div class="form-group">
         <label th:for="dateOfParticipation">Date Of Participation
-            <input th:field="${event.dateOfParticipation}" class="form-control">
+            <input th:field="${event.eventDetails.dateOfParticipation}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.dateOfParticipation}"></p>
+        <p class="error" th:errors="${event.eventDetails.dateOfParticipation}"></p>
     </div>
 
     <div class="form-group">
