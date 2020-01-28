@@ -2,13 +2,12 @@ package org.launchcode.codingevents.models;
 
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Event extends AbstractEntity {
@@ -28,6 +27,10 @@ public class Event extends AbstractEntity {
     @ManyToOne
     @NotNull(message="Category is required")
     private EventCategory eventCategory;
+
+    @ManyToMany
+    private final List<Tag> tags=new ArrayList<>();
+
     public Event(String name, EventCategory eventCategory) {
         this.name = name;
         this.eventCategory=eventCategory;
@@ -58,6 +61,13 @@ public Event(){
         this.eventDetails = eventDetails;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(Tag tag){
+        this.tags.add(tag);
+    }
     @Override
     public String toString() {
         return name;
