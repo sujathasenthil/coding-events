@@ -1,26 +1,28 @@
 package org.launchcode.codingevents.models;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.*;
+//import javax.validation.constraints.*;
 import java.util.Date;
 
 @Entity
 public class EventDetails extends AbstractEntity {
 
-    @Size(max= 500, message="Description is too Long!")
+   // @Size(max= 500, message="Description is too Long!")
     private String description;
-
-    @NotBlank(message="Email is required")
-    @Email(message = "Invalid Email. Try Again!!")
+//
+//    @NotBlank(message="Email is required")
+//    @Email(message = "Invalid Email. Try Again!!")
     private String contactEmail;
-    @NotNull
-    @NotBlank(message="Location should not be empty or null!")
-    @Size(min = 2, max= 30)
+//    @NotNull
+//    @NotBlank(message="Location should not be empty or null!")
+//    @Size(min = 2, max= 30)
     private String location;
-    @AssertTrue(message="Must Register")
+//    @AssertTrue(message="Must Register")
     private boolean register;
     @Range(min = 1)
     private int numberOfAttendees;
@@ -28,8 +30,8 @@ public class EventDetails extends AbstractEntity {
 //@Past(message = "Date of Birth must be the past")
 //@NotNull
 
-    @FutureOrPresent(message="enter valid date")
-    @NotNull(message="enter valid date")
+//    @FutureOrPresent(message="enter valid date")
+//    @NotNull(message="enter valid date")
     private Date dateOfParticipation;
 //
 //    @OneToOne(mappedBy = "eventDetails")

@@ -1,10 +1,12 @@
 package org.launchcode.codingevents.models;
 
+import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+//import javax.validation.Valid;
+//import javax.validation.constraints.*;
+//import javax.validation.constraints.Future;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,18 +16,18 @@ public class Event extends AbstractEntity {
 
     //create new string name and using generate create constructor and getter and setter and generate tostring(edit to return name alone
 
-    @NotBlank(message="Name is required")
-    @Size(min = 3, max=50, message="Name must be between 3 and 50 characters long")
+//    @NotBlank(message="Name is required")
+//    @Size(min = 3, max=50, message="Name must be between 3 and 50 characters long")
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @Valid
-    @NotNull
+//    @Valid
+//    @NotNull
     private EventDetails eventDetails;
 
     // private EventTypes type;
     @ManyToOne
-    @NotNull(message="Category is required")
+    //@NotNull(message="Category is required")
     private EventCategory eventCategory;
 
     @ManyToMany
